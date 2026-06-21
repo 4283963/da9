@@ -32,4 +32,12 @@ echo "  文档: http://localhost:${PORT}/docs"
 echo "========================================="
 echo ""
 
-exec uvicorn app.main:app --host "${HOST}" --port "${PORT}" --reload
+exec uvicorn app.main:app \
+  --host "${HOST}" \
+  --port "${PORT}" \
+  --workers 1 \
+  --timeout-keep-alive 75 \
+  --h11-max-incomplete-event-size 32768 \
+  --backlog 2048 \
+  --log-level info \
+  --no-access-log
